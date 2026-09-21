@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Panadería Ruby — Menú</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F7F1E4;
+    --cream-2: #EFE6D2;
+    --ink: #2B211C;
+    --ink-soft: #5B4E44;
+    --ruby: #8F1B32;
+    --ruby-dark: #5E1220;
+    --ruby-tint: #F4DCDF;
+    --gold: #C69A3E;
+    --gold-tint: #F3E6C6;
+    --green: #4C7A57;
+    --green-tint: #DCE9DE;
+    --gray: #948577;
+    --gray-tint: #E8E2D8;
+    --card-bg: #FFFDF8;
+    --border: #E1D6C2;
+    --shadow: rgba(43, 33, 28, 0.08);
+    --radius-s: 4px;
+    --radius-m: 10px;
+
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --cream: #211A15;
+      --cream-2: #2A211B;
+      --ink: #F3EBE0;
+      --ink-soft: #C9BAA9;
+      --ruby: #D9536C;
+      --ruby-dark: #F0879A;
+      --ruby-tint: #3A1F26;
+      --gold: #E0B65C;
+      --gold-tint: #3B301B;
+      --green: #7FAE8C;
+      --green-tint: #1E2B22;
+      --gray: #9C8F80;
+      --gray-tint: #2E2721;
+      --card-bg: #29211B;
+      --border: #40352B;
+      --shadow: rgba(0, 0, 0, 0.35);
+    }
+  }
+  :root[data-theme="dark"] {
+    --cream: #211A15;
+    --cream-2: #2A211B;
+    --ink: #F3EBE0;
+    --ink-soft: #C9BAA9;
+    --ruby: #D9536C;
+    --ruby-dark: #F0879A;
+    --ruby-tint: #3A1F26;
+    --gold: #E0B65C;
+    --gold-tint: #3B301B;
+    --green: #7FAE8C;
+    --green-tint: #1E2B22;
+    --gray: #9C8F80;
+    --gray-tint: #2E2721;
+    --card-bg: #29211B;
+    --border: #40352B;
+    --shadow: rgba(0, 0, 0, 0.35);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    background: var(--cream);
+    color: var(--ink);
+    font-family: "Work Sans", -apple-system, sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+
+  header.hero {
+    padding: 56px 0 32px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .brand-mark {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .loaf-icon {
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+  }
+
+  h1 {
+    font-family: "Fraunces", serif;
+    font-weight: 600;
+    font-optical-sizing: auto;
+    font-size: clamp(2.4rem, 5vw, 3.4rem);
+    margin: 0;
+    color: var(--ruby);
+    letter-spacing: -0.01em;
+    line-height: 1.02;
+  }
+
+  .tagline {
+    max-width: 320px;
+    color: var(--ink-soft);
+    font-size: 0.98rem;
+    margin: 0 0 4px;
+  }
+
+  .toolbar {
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
+    background: var(--cream);
+    z-index: 5;
+    padding: 20px 0 16px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    border-bottom: 1px solid transparent;
+  }
+
+  .search-box {
+    position: relative;
+    flex: 1 1 220px;
+    min-width: 180px;
+  }
+
+  .search-box input {
+    width: 100%;
+    padding: 11px 14px 11px 38px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--card-bg);
+    color: var(--ink);
+    font-family: inherit;
+    font-size: 0.95rem;
+  }
+
+  .search-box input:focus-visible {
+    outline: 2px solid var(--ruby);
+    outline-offset: 1px;
+  }
+
+  .search-box svg {
+    position: absolute;
+    left: 13px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    color: var(--ink-soft);
+  }
+
+  .tabs {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .tab {
+    border: 1px solid var(--border);
+    background: var(--card-bg);
+    color: var(--ink-soft);
+    padding: 9px 16px;
+    border-radius: 999px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  }
+
+  .tab:hover { border-color: var(--ruby); }
+  .tab:focus-visible { outline: 2px solid var(--ruby); outline-offset: 1px; }
+
+  .tab.active {
+    background: var(--ruby);
+    border-color: var(--ruby);
+    color: #FBF3EF;
+  }
+
+  .legend {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding: 4px 0 28px;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+  }
+
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+  .dot.green { background: var(--green); }
+  .dot.gold { background: var(--gold); }
+  .dot.gray { background: var(--gray); }
+
+  section.category {
+    padding-top: 44px;
+    scroll-margin-top: 140px;
+  }
+
+  .category h2 {
+    font-family: "Fraunces", serif;
+    font-weight: 500;
+    font-size: 1.5rem;
+    margin: 0 0 4px;
+    color: var(--ink);
+  }
+
+  .category .cat-desc {
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+    margin: 0 0 20px;
+    max-width: 60ch;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+  }
+
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-m);
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    box-shadow: 0 1px 2px var(--shadow);
+  }
+
+  .card-image {
+    width: 100%;
+    aspect-ratio: 16 / 11;
+    border-radius: var(--radius-s);
+    background: var(--cream-2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2px;
+    overflow: hidden;
+  }
+
+  .card-image svg {
+    width: 62%;
+    height: 62%;
+  }
+
+  .card.agotado .card-image { opacity: 0.55; }
+
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .card h3 {
+    font-family: "Fraunces", serif;
+    font-weight: 600;
+    font-size: 1.08rem;
+    margin: 0;
+    color: var(--ink);
+  }
+
+  .price {
+    font-weight: 600;
+    color: var(--ruby);
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .card.agotado .price { color: var(--ink-soft); text-decoration: line-through; text-decoration-thickness: 1px; }
+  .card.agotado h3 { color: var(--ink-soft); }
+
+  .desc {
+    color: var(--ink-soft);
+    font-size: 0.9rem;
+    margin: 0;
+    flex-grow: 1;
+  }
+
+  .badge-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: 4px;
+  }
+
+  .badge {
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .badge.disponible { background: var(--green-tint); color: var(--green); }
+  .badge.pocas { background: var(--gold-tint); color: var(--gold); }
+  .badge.agotado { background: var(--gray-tint); color: var(--gray); }
+
+  .stock-count {
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+  }
+
+  .empty-state {
+    padding: 60px 20px;
+    text-align: center;
+    color: var(--ink-soft);
+  }
+
+  .empty-state h3 {
+    font-family: "Fraunces", serif;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+
+  footer {
+    padding-top: 48px;
+    color: var(--ink-soft);
+    font-size: 0.85rem;
+    border-top: 1px solid var(--border);
+    margin-top: 56px;
+  }
+
+  @media (max-width: 560px) {
+    header.hero { padding-top: 36px; }
+    .toolbar { top: env(safe-area-inset-top, 0px); }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="brand-mark">
+      <svg class="loaf-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M6 24c0-9 8-15 18-15s18 6 18 15-4 12-18 12S6 33 6 24Z" fill="var(--ruby)"/>
+        <path d="M12 22c2-1 4 1 6-1s3-2 5 0 4 1 6-1 4 1 6 0" stroke="var(--cream)" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+      <div>
+        <h1>Panadería Ruby</h1>
+        <p class="tagline">Horneado del día, actualizado en tiempo real.</p>
+      </div>
+    </div>
+  </header>
+
+  <div class="toolbar">
+    <div class="search-box">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input id="search" type="text" placeholder="Buscar un pan..." aria-label="Buscar un pan">
+    </div>
+    <div class="tabs" id="tabs" role="tablist" aria-label="Categorías del menú"></div>
+  </div>
+
+  <div class="legend">
+    <span><i class="dot green"></i> Disponible</span>
+    <span><i class="dot gold"></i> Pocas unidades</span>
+    <span><i class="dot gray"></i> Agotado</span>
+  </div>
+
+  <main id="menu"></main>
+
+  <footer>
+    Panadería Ruby · El stock se actualiza según lo horneado cada día.
+  </footer>
+</div>
+
+<script>
+  const CATEGORIES = [
+    {
+      id: "masa-madre",
+      name: "Masa madre",
+      desc: "Fermentación larga, corteza crujiente y miga alveolada.",
+      items: [
+        { name: "Hogaza clásica", desc: "Masa madre de trigo, 24h de fermentación fría.", price: 14000, stock: 9, icon: "loaf" },
+        { name: "Hogaza de centeno", desc: "Con harina de centeno integral y semillas de girasol.", price: 15500, stock: 3, icon: "loafSeeded" },
+        { name: "Baguette rústica", desc: "Corteza fina y miga ligera, ideal para acompañar.", price: 7000, stock: 0, icon: "baguette" },
+        { name: "Pan de campo", desc: "Mezcla de harinas integrales, sabor profundo y ligeramente ácido.", price: 13000, stock: 12, icon: "loaf" },
+      ]
+    },
+    {
+      id: "panes-dulces",
+      name: "Panes dulces",
+      desc: "Para el desayuno o la media tarde, recién horneados.",
+      items: [
+        { name: "Pan de queso", desc: "Suave, esponjoso y con relleno de queso costeño.", price: 4500, stock: 20, icon: "bun" },
+        { name: "Trenza de canela", desc: "Masa hojaldrada con canela y glaseado ligero.", price: 8500, stock: 6, icon: "braid" },
+        { name: "Pan de coco", desc: "Coco rallado y un toque de panela.", price: 5000, stock: 2, icon: "bun" },
+        { name: "Rollos de arequipe", desc: "Rellenos de arequipe casero, horneados en molde.", price: 6000, stock: 0, icon: "roll" },
+      ]
+    },
+    {
+      id: "especiales",
+      name: "Panes especiales",
+      desc: "Ediciones limitadas y opciones para dietas particulares.",
+      items: [
+        { name: "Pan sin gluten", desc: "Mezcla de harina de arroz y almidón de yuca.", price: 12000, stock: 4, icon: "loaf" },
+        { name: "Pan de multicereal", desc: "Avena, linaza, ajonjolí y quinua.", price: 11000, stock: 8, icon: "loafSeeded" },
+        { name: "Focaccia de romero", desc: "Aceite de oliva, romero fresco y sal en escamas.", price: 13500, stock: 1, icon: "focaccia" },
+      ]
+    },
+    {
+      id: "reposteria",
+      name: "Repostería",
+      desc: "Piezas horneadas al momento, en tandas pequeñas.",
+      items: [
+        { name: "Croissant de mantequilla", desc: "Hojaldrado clásico, laminado a mano.", price: 6500, stock: 15, icon: "croissant" },
+        { name: "Muffin de arándanos", desc: "Con arándanos frescos y cobertura crocante.", price: 5500, stock: 10, icon: "muffin" },
+        { name: "Galleta de avena", desc: "Avena, pasas y un toque de canela.", price: 3500, stock: 0, icon: "cookie" },
+      ]
+    },
+  ];
+
+  const ICONS = {
+    loaf: `<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M8 40C6 24 17 12 32 12s26 12 24 28c-2 12-13 16-24 16S10 52 8 40Z" fill="var(--gold)"/>
+      <path d="M8 40C6 24 17 12 32 12s26 12 24 28" fill="none" stroke="var(--ruby)" stroke-width="2" stroke-linecap="round"/>
+      <path d="M20 22c3 4 3 9 0 14M32 18c3 5 3 12 0 18M44 22c-3 4-3 9 0 14" stroke="var(--card-bg)" stroke-width="2" stroke-linecap="round" fill="none"/>
+    </svg>`,
+    loafSeeded: `<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M8 40C6 24 17 12 32 12s26 12 24 28c-2 12-13 16-24 16S10 52 8 40Z" fill="var(--ruby-dark)" opacity="0.85"/>
+      <path d="M20 22c3 4 3 9 0 14M32 18c3 5 3 12 0 18M44 22c-3 4-3 9 0 14" stroke="var(--card-bg)" stroke-width="2" stroke-linecap="round" fill="none"/>
+      <circle cx="24" cy="34" r="1.6" fill="var(--gold)"/><circle cx="30" cy="40" r="1.6" fill="var(--gold)"/>
+      <circle cx="36" cy="32" r="1.6" fill="var(--gold)"/><circle cx="41" cy="38" r="1.6" fill="var(--gold)"/>
+      <circle cx="27" cy="46" r="1.6" fill="var(--gold)"/>
+    </svg>`,
+    baguette: `<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M6 40c-2-8 4-16 12-20 12-6 30-6 40 2 4 3 4 9 0 12-10 8-28 10-42 8-5-1-9-1-10-2Z" fill="var(--gold)"/>
+      <path d="M16 26c3 2 3 6 1 9M26 22c3 2 3 7 1 10M36 21c3 2 3 7 1 10M46 24c2 2 2 6 0 9" stroke="var(--card-bg)" stroke-width="2" stroke-linecap="round" fill="none"/>
+    </svg>`,
+    bun: `<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="32" cy="34" r="20" fill="var(--gold)"/>
+      <path d="M22 24c3 6 3 14 0 20M32 22c3 7 3 15 0 22M42 24c-3 6-3 14 0 20" stroke="var(--card-bg)" stroke-width="2" stroke-linecap="round" fill="none"/>
+    </svg>`,
+    braid: `<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M10 44c6-4 6-10 0-14 6-4 6-10 0-14" stroke="var(--gold)" stroke-width="7" stroke-linecap="round" fill="none"/>
+      <path d="M32 44c6-4 6-10 0-14 6-4 6-10 0-14" stroke="var(--ruby)" stroke-width="7" stroke-linecap="round" fill="none"/>
+      <path d="M54 44c-6-4-6-10 0-14-6-4-6-10 0-14" stroke="var(--gold)" stroke-width="7" stroke-linecap="round" fill="none"/>
+    </svg>`,
+    roll: `<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="32" cy="32" r="20" fill="var(--gold)"/>
+      <path d="M32 20a12 12 0 1 1-8.5 20.5" stroke="var(--card-bg)" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+      <path d="M32 26a6 6 0 1 1-4.2 10.2" stroke="var(--card-bg)" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+    </svg>`,
+    focaccia: `<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <ellipse cx="32" cy="34" rx="24" ry="15" fill="var(--gold)"/>
+      <circle cx="22" cy="30" r="1.8" fill="var(--card-bg)"/><circle cx="32" cy="36" r="1.8" fill="var(--card-bg)"/>
+      <circle cx="42" cy="29" r="1.8" fill="var(--card-bg)"/><circle cx="27" cy="41" r="1.8" fill="var(--card-bg)"/>
+      <circle cx="38" cy="40" r="1.8" fill="var(--card-bg)"/>
+      <path d="M18 24c2 2 2 3 0 4M46 24c-2 2-2 3 0 4" stroke="var(--green)" stroke-width="2" stroke-linecap="round"/>
+    </svg>`,
+    croissant: `<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M12 42c2-16 14-26 28-24 8 1 12 6 12 6s-8-2-14 2c-8 5-10 14-6 22 0 0-10 2-16-2-6-4-5-4-4-4Z" fill="var(--gold)"/>
+      <path d="M18 30c4 2 6 6 6 10M28 24c4 2 7 7 7 12M38 22c4 3 6 8 5 13" stroke="var(--card-bg)" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+    </svg>`,
+    muffin: `<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M16 30c-4 0-6 4-4 6s4 1 5 4l3 12h24l3-12c1-3 3-2 5-4s0-6-4-6Z" fill="var(--gold)"/>
+      <path d="M20 30c3-8 21-8 24 0" fill="var(--ruby-dark)"/>
+      <circle cx="24" cy="24" r="2" fill="var(--ruby)"/><circle cx="32" cy="21" r="2" fill="var(--ruby)"/><circle cx="40" cy="24" r="2" fill="var(--ruby)"/>
+    </svg>`,
+    cookie: `<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="32" cy="32" r="20" fill="var(--gold)"/>
+      <circle cx="24" cy="26" r="2.2" fill="var(--ruby-dark)"/><circle cx="36" cy="24" r="2.2" fill="var(--ruby-dark)"/>
+      <circle cx="42" cy="34" r="2.2" fill="var(--ruby-dark)"/><circle cx="28" cy="40" r="2.2" fill="var(--ruby-dark)"/>
+      <circle cx="20" cy="36" r="2.2" fill="var(--ruby-dark)"/>
+    </svg>`,
+  };
+
+  function stockInfo(stock) {
+    if (stock <= 0) return { label: "Agotado", cls: "agotado" };
+    if (stock <= 3) return { label: "Pocas unidades", cls: "pocas" };
+    return { label: "Disponible", cls: "disponible" };
+  }
+
+  function formatPrice(n) {
+    return "$" + n.toLocaleString("es-CO");
+  }
+
+  const menuEl = document.getElementById("menu");
+  const tabsEl = document.getElementById("tabs");
+  const searchEl = document.getElementById("search");
+  let activeCategory = "todos";
+
+  function buildTabs() {
+    const all = document.createElement("button");
+    all.className = "tab active";
+    all.textContent = "Todos";
+    all.setAttribute("role", "tab");
+    all.dataset.cat = "todos";
+    tabsEl.appendChild(all);
+
+    CATEGORIES.forEach(cat => {
+      const btn = document.createElement("button");
+      btn.className = "tab";
+      btn.textContent = cat.name;
+      btn.setAttribute("role", "tab");
+      btn.dataset.cat = cat.id;
+      tabsEl.appendChild(btn);
+    });
+
+    tabsEl.addEventListener("click", (e) => {
+      const btn = e.target.closest(".tab");
+      if (!btn) return;
+      activeCategory = btn.dataset.cat;
+      [...tabsEl.children].forEach(c => c.classList.toggle("active", c === btn));
+      render();
+    });
+  }
+
+  function render() {
+    const query = searchEl.value.trim().toLowerCase();
+    menuEl.innerHTML = "";
+    let totalShown = 0;
+
+    CATEGORIES.forEach(cat => {
+      if (activeCategory !== "todos" && activeCategory !== cat.id) return;
+
+      const filtered = cat.items.filter(item =>
+        !query || item.name.toLowerCase().includes(query) || item.desc.toLowerCase().includes(query)
+      );
+      if (filtered.length === 0) return;
+      totalShown += filtered.length;
+
+      const section = document.createElement("section");
+      section.className = "category";
+      section.id = cat.id;
+
+      const h2 = document.createElement("h2");
+      h2.textContent = cat.name;
+      const p = document.createElement("p");
+      p.className = "cat-desc";
+      p.textContent = cat.desc;
+
+      const grid = document.createElement("div");
+      grid.className = "grid";
+
+      filtered.forEach(item => {
+        const info = stockInfo(item.stock);
+        const card = document.createElement("article");
+        card.className = "card " + info.cls;
+
+        card.innerHTML = `
+          <div class="card-image">${ICONS[item.icon] || ICONS.loaf}</div>
+          <div class="card-top">
+            <h3>${item.name}</h3>
+            <span class="price">${formatPrice(item.price)}</span>
+          </div>
+          <p class="desc">${item.desc}</p>
+          <div class="badge-row">
+            <span class="badge ${info.cls}">${info.label}</span>
+            <span class="stock-count">${item.stock > 0 ? item.stock + " uds." : ""}</span>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+
+      section.appendChild(h2);
+      section.appendChild(p);
+      section.appendChild(grid);
+      menuEl.appendChild(section);
+    });
+
+    if (totalShown === 0) {
+      const empty = document.createElement("div");
+      empty.className = "empty-state";
+      empty.innerHTML = `<h3>No encontramos ese pan</h3><p>Prueba con otra palabra o revisa otra categoría.</p>`;
+      menuEl.appendChild(empty);
+    }
+  }
+
+  searchEl.addEventListener("input", render);
+  buildTabs();
+  render();
+</script>
+</body>
+</html>
